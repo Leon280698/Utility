@@ -11,7 +11,7 @@ namespace util{
 	public:
 		CommandLine() = default;
 		CommandLine(int argc, const char* const* const argv){ init({argv, argv + argc}); }
-		CommandLine(std::string_view cmd){ init(util::str::split(cmd)); }
+		CommandLine(std::string_view cmd){ init(str::split(cmd)); }
 
 		bool has_option(const std::string& arg) const{ return optionValues.find(arg) != optionValues.end(); }
 		const std::vector<std::string>& argv() const{ return argvec; }

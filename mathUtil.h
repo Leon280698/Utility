@@ -1,36 +1,19 @@
 #pragma once
 
 #include <cmath>
-#include <ctime>
 #include <cstdlib>
 
 namespace util::math{
 	//Linear interpolation by lerpFactor
 	template<typename T1, typename T2>
-	inline constexpr T1 lerp(const T1& t1, const T1& t2, const T2& factor) noexcept{
+	inline constexpr T1 lerp(const T1 t1, const T1 t2, const T2 factor) noexcept{
 		return t1 + (t2 - t1) * factor;
 	}
 
 	//Clamping a value between min and max
 	template<typename T>
-	inline constexpr T clamp(const T& value, const T& min, const T& max) noexcept{
-		if(value < min)
-			return min;
-
-		if(value > max)
-			return max;
-
-		return value;
-	}
-
-	//Simple wrapper around std::rand, just for consistency...
-	inline void srand(unsigned int seed) noexcept{
-		std::srand(seed);
-	}
-
-	//Initializes the random number generator using the current time as seed
-	inline void init_random() noexcept{
-		std::srand(static_cast<unsigned int>(std::time(nullptr)));
+	inline constexpr T clamp(const T value, const T min, const T max) noexcept{
+		return value < min ? min : value > max ? max : value;
 	}
 
 	//Returns a random number between min and max
