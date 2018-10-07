@@ -6,13 +6,13 @@
 namespace util::math{
 	//Linear interpolation by lerpFactor
 	template<typename T1, typename T2>
-	inline constexpr T1 lerp(const T1 t1, const T1 t2, const T2 factor) noexcept{
+	constexpr T1 lerp(const T1 t1, const T1 t2, const T2 factor) noexcept{
 		return t1 + (t2 - t1) * factor;
 	}
 
 	//Clamping a value between min and max
 	template<typename T>
-	inline constexpr T clamp(const T value, const T min, const T max) noexcept{
+	constexpr T clamp(const T value, const T min, const T max) noexcept{
 		return value < min ? min : value > max ? max : value;
 	}
 

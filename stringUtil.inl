@@ -4,7 +4,7 @@ namespace util::str{
 	//to_string
 
 	template<typename T>
-	inline std::string to_string(T value){
+	std::string to_string(T value){
 		return std::to_string(value);
 	}
 
