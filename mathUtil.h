@@ -26,15 +26,15 @@ namespace util::math{
 	struct Vec2f{
 		float x = 0.0f, y = 0.0f;
 
-		constexpr Vec2f operator+(Vec2f other) const noexcept{ return {x + other.x, y + other.y}; }
-		constexpr Vec2f operator-(Vec2f other) const noexcept{ return {x - other.x, y - other.y}; }
-		constexpr Vec2f operator*(Vec2f other) const noexcept{ return {x * other.x, y * other.y}; }
-		constexpr Vec2f operator/(Vec2f other) const noexcept{ return {x / other.x, y / other.y}; }
-		Vec2f& operator+=(Vec2f other) noexcept{ return *this = *this + other; }
-		Vec2f& operator-=(Vec2f other) noexcept{ return *this = *this - other; }
-		Vec2f& operator*=(Vec2f other) noexcept{ return *this = *this * other; }
-		Vec2f& operator/=(Vec2f other) noexcept{ return *this = *this / other; }
-		constexpr float dot(Vec2f other) const noexcept{ return x * other.x + y * other.y; }
+		constexpr Vec2f operator+(const Vec2f other) const noexcept{ return {x + other.x, y + other.y}; }
+		constexpr Vec2f operator-(const Vec2f other) const noexcept{ return {x - other.x, y - other.y}; }
+		constexpr Vec2f operator*(const Vec2f other) const noexcept{ return {x * other.x, y * other.y}; }
+		constexpr Vec2f operator/(const Vec2f other) const noexcept{ return {x / other.x, y / other.y}; }
+		Vec2f& operator+=(const Vec2f other) noexcept{ return *this = *this + other; }
+		Vec2f& operator-=(const Vec2f other) noexcept{ return *this = *this - other; }
+		Vec2f& operator*=(const Vec2f other) noexcept{ return *this = *this * other; }
+		Vec2f& operator/=(const Vec2f other) noexcept{ return *this = *this / other; }
+		constexpr float dot(const Vec2f other) const noexcept{ return x * other.x + y * other.y; }
 		constexpr float length_sq() const noexcept{ return dot(*this); }
 		float length() const{ return std::sqrtf(length_sq()); }
 	};
@@ -42,30 +42,30 @@ namespace util::math{
 	struct Vec3f{
 		float x = 0.0f, y = 0.0f, z = 0.0f;
 
-		constexpr Vec3f operator+(Vec3f other) const noexcept{ return {x + other.x, y + other.y, z + other.z}; }
-		constexpr Vec3f operator-(Vec3f other) const noexcept{ return {x - other.x, y - other.y, z - other.z}; }
-		constexpr Vec3f operator*(Vec3f other) const noexcept{ return {x * other.x, y * other.y, z * other.z}; }
-		constexpr Vec3f operator/(Vec3f other) const noexcept{ return {x / other.x, y / other.y, z / other.z}; }
-		Vec3f& operator+=(Vec3f other) noexcept{ return *this = *this + other; }
-		Vec3f& operator-=(Vec3f other) noexcept{ return *this = *this - other; }
-		Vec3f& operator*=(Vec3f other) noexcept{ return *this = *this * other; }
-		Vec3f& operator/=(Vec3f other) noexcept{ return *this = *this / other; }
-		constexpr float dot(Vec3f other) const noexcept{ return x * other.x + y * other.y + z * other.z; }
+		constexpr Vec3f operator+(const Vec3f other) const noexcept{ return {x + other.x, y + other.y, z + other.z}; }
+		constexpr Vec3f operator-(const Vec3f other) const noexcept{ return {x - other.x, y - other.y, z - other.z}; }
+		constexpr Vec3f operator*(const Vec3f other) const noexcept{ return {x * other.x, y * other.y, z * other.z}; }
+		constexpr Vec3f operator/(const Vec3f other) const noexcept{ return {x / other.x, y / other.y, z / other.z}; }
+		Vec3f& operator+=(const Vec3f other) noexcept{ return *this = *this + other; }
+		Vec3f& operator-=(const Vec3f other) noexcept{ return *this = *this - other; }
+		Vec3f& operator*=(const Vec3f other) noexcept{ return *this = *this * other; }
+		Vec3f& operator/=(const Vec3f other) noexcept{ return *this = *this / other; }
+		constexpr float dot(const Vec3f other) const noexcept{ return x * other.x + y * other.y + z * other.z; }
 		constexpr float length_sq() const noexcept{ return dot(*this); }
 		float length() const{ return std::sqrtf(length_sq()); }
-		constexpr Vec3f cross(Vec3f other) const noexcept{ return {y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x}; }
+		constexpr Vec3f cross(const Vec3f other) const noexcept{ return {y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x}; }
 	};
 
 	struct Vec4f{
 		float x = 0.0f, y = 0.0f, z = 0.0f, w = 1.0f;
 
-		constexpr Vec4f operator+(Vec4f other) const noexcept{ return {x + other.x, y + other.y, z + other.z, w + other.w}; }
-		constexpr Vec4f operator-(Vec4f other) const noexcept{ return {x - other.x, y - other.y, z - other.z, w - other.w}; }
-		constexpr Vec4f operator*(Vec4f other) const noexcept{ return {x * other.x, y * other.y, z * other.z, w * other.w}; }
-		constexpr Vec4f operator/(Vec4f other) const noexcept{ return {x / other.x, y / other.y, z / other.z, w / other.w}; }
-		Vec4f& operator+=(Vec4f other) noexcept{ return *this = *this + other; }
-		Vec4f& operator-=(Vec4f other) noexcept{ return *this = *this - other; }
-		Vec4f& operator*=(Vec4f other) noexcept{ return *this = *this * other; }
-		Vec4f& operator/=(Vec4f other) noexcept{ return *this = *this / other; }
+		constexpr Vec4f operator+(const Vec4f other) const noexcept{ return {x + other.x, y + other.y, z + other.z, w + other.w}; }
+		constexpr Vec4f operator-(const Vec4f other) const noexcept{ return {x - other.x, y - other.y, z - other.z, w - other.w}; }
+		constexpr Vec4f operator*(const Vec4f other) const noexcept{ return {x * other.x, y * other.y, z * other.z, w * other.w}; }
+		constexpr Vec4f operator/(const Vec4f other) const noexcept{ return {x / other.x, y / other.y, z / other.z, w / other.w}; }
+		Vec4f& operator+=(const Vec4f other) noexcept{ return *this = *this + other; }
+		Vec4f& operator-=(const Vec4f other) noexcept{ return *this = *this - other; }
+		Vec4f& operator*=(const Vec4f other) noexcept{ return *this = *this * other; }
+		Vec4f& operator/=(const Vec4f other) noexcept{ return *this = *this / other; }
 	};
 }
