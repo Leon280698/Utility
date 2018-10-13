@@ -66,6 +66,23 @@ namespace util::str{
 		return ext;
 	}
 
+	//Joins paths adding separators if needed
+	inline std::string join_paths(std::string_view result){
+		return result.data();
+	}
+
+	template<typename ... Args>
+	std::string join_paths(std::string_view p1, std::string_view p2, Args&& ...args){
+		std::string joinedPath;
+
+		if(p1.back() != '/' && p1.back() != '\\' && p2[0] != '/' && p2[0] != '\\')
+			joinedPath = std::string{p1} + "/" + p2.data();
+		else
+			joinedPath = std::string{p1} + p2.data();
+
+		return join_paths(joinedPath, args...);
+	}
+
 	//Converts string to lower case
 	inline std::string to_lower(std::string_view s){
 		std::string result;
