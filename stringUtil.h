@@ -169,7 +169,7 @@ namespace util::str{
 
 	//Case insensitive hash
 	struct CaseInsensitiveHash{
-		size_t operator()(std::string_view s) const{
+		std::size_t operator()(std::string_view s) const{
 			return std::hash<std::string>{}(to_lower(s));
 		}
 	};
