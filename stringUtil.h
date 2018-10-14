@@ -145,7 +145,7 @@ namespace util::str{
 
 	template<typename T, typename ... Args>
 	void to_string_vector(std::vector<std::string>& result, const T& t, Args ...args){
-		result.push_back((std::ostringstream{} << t).str());
+		result.push_back(static_cast<std::ostringstream&&>((std::ostringstream{} << t)).str());
 		to_string_vector(result, args...);
 	}
 
