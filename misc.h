@@ -4,6 +4,7 @@
 #include <Windows.h>
 #else
 #include <dlfcn.h>
+#include <stdlib.h>
 #endif
 
 #include <ctime>
@@ -16,18 +17,30 @@ namespace util{
 	template<typename T, std::size_t size>
 	constexpr std::size_t array_size(T(&)[size]) noexcept{ return size; }
 
-	/*
-	*	Code for loading dynamic libraries and getting the
-	*	addresses of their exported symbols
-	*/
 #ifdef _WIN32
 	inline void* load_library(std::string_view name) noexcept{ return reinterpret_cast<void*>(LoadLibraryA(name.data())); }
 	inline void free_library(void* ptr) noexcept{ FreeLibrary(static_cast<HMODULE>(ptr)); }
 	inline void* get_proc_address(void* module, std::string_view name) noexcept{ return reinterpret_cast<void*>(GetProcAddress(static_cast<HMODULE>(module), name.data())); }
+
+	inline std::string absolute_path(std::string_view path){
+		char buffer[512];
+
+		GetFullPathNameA(path.data(), sizeof(buffer), buffer, nullptr);
+
+		return buffer;
+	}
 #else //Only assuming either windows or unix for now...
 	inline void* load_library(std::string_view name) noexcept{ return dlopen(name.data(), RTLD_NOW); }
 	inline void free_library(void* ptr) noexcept{ dlclose(ptr); }
 	inline void* get_proc_address(void* module, std::string_view name) noexcept{ return dlsym(module, name.data()); }
+
+	inline std::string absolute_path(std::string_view path){
+		char buffer[512];
+
+		realpath(path.data(), buffer);
+
+		return buffer;
+	}
 #endif
 
 	/*
