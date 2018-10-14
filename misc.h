@@ -25,7 +25,7 @@ namespace util{
 	inline std::string absolute_path(std::string_view path){
 		char buffer[512];
 
-		GetFullPathNameA(path.data(), sizeof(buffer), buffer, nullptr);
+		GetFullPathNameA(path.empty() ? "." : path.data(), sizeof(buffer), buffer, nullptr);
 
 		return buffer;
 	}
@@ -37,7 +37,7 @@ namespace util{
 	inline std::string absolute_path(std::string_view path){
 		char buffer[512];
 
-		realpath(path.data(), buffer);
+		realpath(path.empty() ? "." : path.data(), buffer);
 
 		return buffer;
 	}
