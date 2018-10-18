@@ -172,7 +172,7 @@ namespace util::str{
 
 				for(; &fmt[i] != end; ++i){}
 
-				if(*end == '}' && index > 0 && index < values.size())
+				if(*end == '}' && index > 0 && index <= values.size())
 					result += values[index - 1];
 				else
 					result += std::string_view{&fmt[start], i - start + 1};
