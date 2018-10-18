@@ -152,8 +152,8 @@ namespace util::str{
 	/*
 	*	Templated string formatting.
 	*	fmt can contain the index of the value to insert within curly braces
-	*	e.g. {1} would mean that the second parameter passed to the function will
-	*	be added at this position (indices start at 0 like with arrays)
+	*	e.g. {1} would mean that the first parameter passed to the function will
+	*	be added at this position
 	*	One index can be used multiple times and the order is completely irrelevant
 	*/
 	template<typename ... Args>
@@ -172,8 +172,8 @@ namespace util::str{
 
 				for(; &fmt[i] != end; ++i){}
 
-				if(*end == '}' && index < values.size())
-					result += values[index];
+				if(*end == '}' && index > 0 && index < values.size())
+					result += values[index - 1];
 				else
 					result += std::string_view{&fmt[start], i - start + 1};
 			}else{
