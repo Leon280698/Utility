@@ -170,7 +170,8 @@ namespace util::str{
 				std::size_t index = std::strtoul(&fmt[i + 1], &end, 10);
 				std::size_t start = i;
 
-				for(; &fmt[i] != end; ++i){}
+				while(&fmt[i] != end)
+					++i;
 
 				if(*end == '}' && index > 0 && index <= values.size())
 					result += values[index - 1];
