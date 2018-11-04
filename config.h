@@ -15,11 +15,12 @@ namespace util{
 		Config() = default;
 
 		Config(const std::string& fileName){
-			load_from_file(fileName);
+			load_from_file(fileName, true);
 		}
 
-		bool load_from_file(const std::string& fileName){
-			clear();
+		bool load_from_file(const std::string& fileName, bool clearCache){
+			if(clearCache)
+				clear();
 
 			if(std::ifstream in{fileName}){
 				std::string currentLine, currentSection;
