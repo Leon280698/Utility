@@ -25,7 +25,7 @@ namespace util{
 	inline std::string absolute_path(std::string_view path){
 		char buffer[512];
 
-		GetFullPathNameA(path.empty() ? "." : path.data(), sizeof(buffer), buffer, nullptr);
+		GetFullPathNameA(path.empty() ? "." : path.data(), static_cast<DWORD>(array_size(buffer)), buffer, nullptr);
 
 		return buffer;
 	}
@@ -52,7 +52,7 @@ namespace util{
 		std::time_t rawTime = std::time(nullptr);
 		std::tm* timeInfo = std::localtime(&rawTime);
 
-		std::strftime(buffer, sizeof(buffer), fmt.data(), timeInfo);
+		std::strftime(buffer, array_size(buffer), fmt.data(), timeInfo);
 
 		return buffer;
 	}
