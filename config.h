@@ -42,9 +42,11 @@ namespace util{
 						}
 					}
 				}
+
+				return true;
 			}
 
-			return !data.empty();
+			return false;
 		}
 
 		bool save_to_file(const std::string& fileName) const{
