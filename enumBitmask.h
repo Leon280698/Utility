@@ -12,7 +12,7 @@ namespace util{
 		constexpr EnumBitmask() = default;
 		constexpr EnumBitmask(EnumType initialValue) noexcept : mask{static_cast<UnderlyingType>(initialValue)}{}
 		
-		constexpr UnderlyingType mask() const noexcept{ return mask; }
+		constexpr UnderlyingType value() const noexcept{ return mask; }
 
 		constexpr EnumBitmask operator&(EnumType flag) const noexcept{
 			return EnumBitmask{mask & static_cast<UnderlyingType>(flag)};
