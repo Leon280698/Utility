@@ -194,7 +194,7 @@ namespace util::str{
 
 	//Case insensitive comparison
 	struct CaseInsensitiveEqual{
-		bool operator()(std::string_view s1, std::string_view s2) const{
+		bool operator()(std::string_view s1, std::string_view s2) const noexcept{
 			return std::equal(s1.begin(), s1.end(), s2.begin(), s2.end(), [](char a, char b){
 				return std::tolower(a) == std::tolower(b);
 			});
@@ -203,7 +203,7 @@ namespace util::str{
 
 	//Case insensitive less for ordered containers
 	struct CaseInsensitiveLess{
-		bool operator()(std::string_view s1, std::string_view s2) const{
+		bool operator()(std::string_view s1, std::string_view s2) const noexcept{
 			return std::lexicographical_compare(s1.begin(), s1.end(), s2.begin(), s2.end(), [](char a, char b){
 				return std::tolower(a) < std::tolower(b);
 			});

@@ -10,8 +10,9 @@ namespace util{
 		using UnderlyingType = typename std::underlying_type<EnumType>::type;
 
 		constexpr EnumBitmask() = default;
-		constexpr EnumBitmask(EnumType initialValue) noexcept : mask{static_cast<UnderlyingType>(initialValue)}{}
-		
+		constexpr explicit EnumBitmask(UnderlyingType mask) noexcept : mask{mask}{}
+		constexpr explicit EnumBitmask(EnumType initialValue) noexcept : EnumBitmask{static_cast<UnderlyingType>(initialValue)}{}
+
 		constexpr UnderlyingType value() const noexcept{ return mask; }
 
 		constexpr EnumBitmask operator&(EnumType flag) const noexcept{
@@ -61,11 +62,9 @@ namespace util{
 		constexpr operator bool() const noexcept{
 			return mask != 0;
 		}
-
+		
 	private:
 		UnderlyingType mask = 0;
-
-		constexpr EnumBitmask(UnderlyingType mask) noexcept : mask{mask}{}
 
 		friend constexpr EnumBitmask operator&(EnumType e1, EnumBitmask e2) noexcept{
 			return e2 & e1;
