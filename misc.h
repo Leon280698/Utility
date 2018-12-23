@@ -8,6 +8,7 @@
 #endif
 
 #include <ctime>
+#include <memory>
 #include <string>
 #include <cstddef>
 #include <type_traits>
@@ -20,9 +21,8 @@ namespace util{
 	template<typename S, typename T>
 	std::uintptr_t offset_of(T S::*member){
 		static_assert(std::is_standard_layout<S>{});
-		static_assert(sizeof(member) == sizeof(std::uintptr_t));
 
-		return *reinterpret_cast<std::uintptr_t*>(&member);
+		return reinterpret_cast<std::uintptr_t>(std::addressof(reinterpret_cast<S*>(NULL)->*member));
 	}
 
 #ifdef _WIN32
