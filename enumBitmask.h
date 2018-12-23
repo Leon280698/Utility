@@ -5,7 +5,7 @@
 namespace util{
 	template<typename EnumType>
 	class EnumBitmask{
-		static_assert(std::is_enum<EnumType>::value, "template parameter must be an enum type");
+		static_assert(std::is_enum<EnumType>{});
 	public:
 		using UnderlyingType = typename std::underlying_type<EnumType>::type;
 
@@ -14,14 +14,8 @@ namespace util{
 		constexpr explicit EnumBitmask(EnumType initialValue) noexcept : EnumBitmask{static_cast<UnderlyingType>(initialValue)}{}
 
 		constexpr UnderlyingType value() const noexcept{ return mask; }
-
-		constexpr EnumBitmask operator&(EnumType flag) const noexcept{
-			return EnumBitmask{mask & static_cast<UnderlyingType>(flag)};
-		}
-
-		constexpr EnumBitmask operator|(EnumType flag) const noexcept{
-			return EnumBitmask{mask | static_cast<UnderlyingType>(flag)};
-		}
+		constexpr EnumBitmask operator&(EnumType flag) const noexcept{ return EnumBitmask{mask & static_cast<UnderlyingType>(flag)}; }
+		constexpr EnumBitmask operator|(EnumType flag) const noexcept{ return EnumBitmask{mask | static_cast<UnderlyingType>(flag)}; }
 
 		EnumBitmask operator&=(EnumType flag) noexcept{
 			mask &= static_cast<UnderlyingType>(flag);
@@ -55,24 +49,14 @@ namespace util{
 			return *this;
 		}
 
-		constexpr EnumBitmask operator~() const noexcept{
-			return EnumBitmask{~mask};
-		}
+		constexpr EnumBitmask operator~() const noexcept{ return EnumBitmask{~mask}; }
+		constexpr operator bool() const noexcept{ return mask != 0; }
 
-		constexpr operator bool() const noexcept{
-			return mask != 0;
-		}
-		
 	private:
 		UnderlyingType mask = 0;
 
-		friend constexpr EnumBitmask operator&(EnumType e1, EnumBitmask e2) noexcept{
-			return e2 & e1;
-		}
-
-		friend constexpr EnumBitmask operator|(EnumType e1, EnumBitmask e2) noexcept{
-			return e2 | e1;
-		}
+		friend constexpr EnumBitmask operator&(EnumType e1, EnumBitmask e2) noexcept{ return e2 & e1; }
+		friend constexpr EnumBitmask operator|(EnumType e1, EnumBitmask e2) noexcept{ return e2 | e1; }
 	};
 }
 

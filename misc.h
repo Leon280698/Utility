@@ -17,6 +17,14 @@ namespace util{
 	template<typename T, std::size_t size>
 	constexpr std::size_t array_size(T(&)[size]) noexcept{ return size; }
 
+	template<typename S, typename T>
+	std::uintptr_t offset_of(T S::*member){
+		static_assert(std::is_standard_layout<S>{});
+		static_assert(sizeof(member) == sizeof(std::uintptr_t));
+
+		return *reinterpret_cast<std::uintptr_t*>(&member);
+	}
+
 #ifdef _WIN32
 	inline void* load_library(std::string_view name) noexcept{ return reinterpret_cast<void*>(LoadLibraryA(name.data())); }
 	inline void free_library(void* ptr) noexcept{ FreeLibrary(static_cast<HMODULE>(ptr)); }
