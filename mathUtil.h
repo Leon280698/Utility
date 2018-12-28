@@ -4,24 +4,29 @@
 #include <cstdlib>
 
 namespace util::math{
-	//Linear interpolation by lerpFactor
+	// Linear interpolation by lerpFactor
 	template<typename T1, typename T2>
 	constexpr T1 lerp(const T1 t1, const T1 t2, const T2 factor) noexcept{
 		return t1 + (t2 - t1) * factor;
 	}
 
-	//Clamping a value between min and max
+	// Clamping a value between min and max
 	template<typename T>
 	constexpr T clamp(const T value, const T min, const T max) noexcept{
 		return value < min ? min : value > max ? max : value;
 	}
 
-	//Returns a random number between min and max
+	// Returns a random number between min and max
 	inline float rand_range(float min, float max) noexcept{
 		return lerp(min, max, std::rand() / static_cast<float>(RAND_MAX));
 	}
 
-	//Vector types
+	// Aligns an integer to the next multiple of the specified alignment
+	inline constexpr int align(int value, int alignment){
+		return (value + alignment - 1) & ~(alignment - 1);
+	}
+
+	// Vector types
 
 	struct Vec2f{
 		float x = 0.0f, y = 0.0f;
