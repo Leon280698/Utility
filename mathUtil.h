@@ -41,7 +41,7 @@ namespace util::math{
 		Vec2f& operator/=(const Vec2f other) noexcept{ return *this = *this / other; }
 		constexpr float dot(const Vec2f other) const noexcept{ return x * other.x + y * other.y; }
 		constexpr float length_sq() const noexcept{ return dot(*this); }
-		float length() const{ return std::sqrtf(length_sq()); }
+		float length() const{ return sqrtf(length_sq()); }
 	};
 
 	struct Vec3f{
@@ -57,7 +57,7 @@ namespace util::math{
 		Vec3f& operator/=(const Vec3f other) noexcept{ return *this = *this / other; }
 		constexpr float dot(const Vec3f other) const noexcept{ return x * other.x + y * other.y + z * other.z; }
 		constexpr float length_sq() const noexcept{ return dot(*this); }
-		float length() const{ return std::sqrtf(length_sq()); }
+		float length() const{ return sqrtf(length_sq()); }
 		constexpr Vec3f cross(const Vec3f other) const noexcept{ return {y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x}; }
 	};
 
