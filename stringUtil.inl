@@ -41,6 +41,26 @@ namespace util::str{
 	}
 
 	template<>
+	inline signed char to_value<signed char>(const std::string& value){
+		return static_cast<signed char>(std::stoi(value));
+	}
+
+	template<>
+	inline unsigned char to_value<unsigned char>(const std::string& value){
+		return static_cast<unsigned char>(std::stoi(value));
+	}
+
+	template<>
+	inline short to_value<short>(const std::string& value){
+		return static_cast<short>(std::stoi(value));
+	}
+
+	template<>
+	inline unsigned short to_value<unsigned short>(const std::string& value){
+		return static_cast<unsigned short>(std::stoul(value));
+	}
+
+	template<>
 	inline int to_value<int>(const std::string& value){
 		return std::stoi(value);
 	}
@@ -83,10 +103,5 @@ namespace util::str{
 	template<>
 	inline long double to_value<long double>(const std::string& value){
 		return std::stold(value);
-	}
-
-	template<>
-	inline char to_value<char>(const std::string& value){
-		return value[0];
 	}
 }
