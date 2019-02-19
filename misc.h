@@ -15,8 +15,8 @@
 #include <string_view>
 
 namespace util{
-	template<typename T, std::size_t size>
-	constexpr std::size_t array_size(T(&)[size]) noexcept{ return size; }
+	template<typename T, int size>
+	constexpr int array_size(T(&)[size]) noexcept{ return size; }
 
 	template<typename S, typename T>
 	std::uintptr_t offset_of(T S::*member){
