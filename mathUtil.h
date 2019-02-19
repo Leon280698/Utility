@@ -22,7 +22,8 @@ namespace util::math{
 	}
 
 	// Aligns an integer to the next multiple of the specified alignment
-	inline constexpr int align(int value, int alignment){
+	template<typename T>
+	constexpr T align(T value, T alignment){
 		return (value + alignment - 1) & ~(alignment - 1);
 	}
 
