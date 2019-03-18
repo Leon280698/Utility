@@ -10,8 +10,8 @@ namespace util{
 		using UnderlyingType = typename std::underlying_type<EnumType>::type;
 
 		constexpr EnumBitmask() = default;
-		constexpr explicit EnumBitmask(UnderlyingType mask) noexcept : mask{mask}{}
-		constexpr explicit EnumBitmask(EnumType initialValue) noexcept : EnumBitmask{static_cast<UnderlyingType>(initialValue)}{}
+		constexpr EnumBitmask(UnderlyingType mask) noexcept : mask{mask}{}
+		constexpr EnumBitmask(EnumType initialValue) noexcept : EnumBitmask{static_cast<UnderlyingType>(initialValue)}{}
 
 		constexpr UnderlyingType value() const noexcept{ return mask; }
 		constexpr EnumBitmask operator&(EnumType flag) const noexcept{ return EnumBitmask{mask & static_cast<UnderlyingType>(flag)}; }
@@ -50,7 +50,7 @@ namespace util{
 		}
 
 		constexpr EnumBitmask operator~() const noexcept{ return EnumBitmask{~mask}; }
-		constexpr operator bool() const noexcept{ return mask != 0; }
+		constexpr operator UnderlyingType() const noexcept{ return mask; }
 
 	private:
 		UnderlyingType mask = 0;
@@ -68,4 +68,16 @@ namespace util{
 													  } \
 													  inline constexpr util::EnumBitmask<enumType> operator~(enumType e) noexcept{ \
 														  return ~util::EnumBitmask<enumType>{e}; \
+													  } \
+													  inline constexpr util::EnumBitmask<enumType> operator&(util::EnumBitmask<enumType>::UnderlyingType e1, enumType e2) noexcept{ \
+														  return util::EnumBitmask<enumType>{e1} & e2; \
+													  } \
+													  inline constexpr util::EnumBitmask<enumType> operator|(util::EnumBitmask<enumType>::UnderlyingType e1, enumType e2) noexcept{ \
+														  return util::EnumBitmask<enumType>{e1} | e2; \
+													  } \
+													  inline constexpr util::EnumBitmask<enumType>::UnderlyingType operator&=(util::EnumBitmask<enumType>::UnderlyingType& e1, enumType e2) noexcept{ \
+														  return e1 &= static_cast<util::EnumBitmask<enumType>::UnderlyingType>(e2); \
+													  } \
+													  inline constexpr util::EnumBitmask<enumType>::UnderlyingType operator|=(util::EnumBitmask<enumType>::UnderlyingType& e1, enumType e2) noexcept{ \
+														  return e1 |= static_cast<util::EnumBitmask<enumType>::UnderlyingType>(e2); \
 													  }
