@@ -25,6 +25,23 @@ namespace util{
 		return reinterpret_cast<std::uintptr_t>(std::addressof(reinterpret_cast<S*>(NULL)->*member));
 	}
 
+	namespace detail{
+		struct No{};
+
+		template<typename T, typename Arg>
+		No operator==(const T&, const Arg&);
+
+		template<typename T, typename Arg = T>
+		struct HasEqualsOperatorImpl{
+			enum{ value = !std::is_same<decltype(*(T*)(0) == *(Arg*)(0)), No>::value };
+
+			constexpr operator bool(){ return static_cast<bool>(value); }
+		};
+	}
+
+	template<typename T>
+	using HasEqualsOperator = detail::HasEqualsOperatorImpl<T>;
+
 #ifdef _WIN32
 	inline void* load_library(std::string_view name) noexcept{ return reinterpret_cast<void*>(LoadLibraryA(name.data())); }
 	inline void free_library(void* ptr) noexcept{ FreeLibrary(static_cast<HMODULE>(ptr)); }
