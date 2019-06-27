@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <cstdlib>
+#include <utility>
 
 namespace util::math{
 	// Linear interpolation by lerpFactor
@@ -22,9 +23,9 @@ namespace util::math{
 	}
 
 	// Aligns an integer to the next multiple of the specified alignment
-	template<typename T1, typename T2>
-	constexpr auto align(T1 value, T2 alignment)->decltype(value + alignment){
-		return (value + alignment - 1) & ~static_cast<decltype(value + alignment)>(alignment - 1);
+	template<typename T1, typename T2, typename ResultType = decltype(std::declval<T1>() + std::declval<T2>())>
+	constexpr ResultType align(T1 value, T2 alignment){
+		return (value + alignment - 1) & ~static_cast<ResultType>(alignment - 1);
 	}
 
 	// Vector types
