@@ -11,10 +11,32 @@
 #include <memory>
 #include <string>
 #include <cstddef>
+#include <typeinfo>
 #include <type_traits>
 #include <string_view>
 
+#if defined(__clang__)  || defined(__GNUC__)
+#include <cxxabi.h>
+#endif // __clang__ || __GNUC__
+
 namespace util{
+	template<typename T>
+	std::string type_name(){
+#ifdef _MSC_VER
+		return typeid(T).name();
+#elif defined(__clang__)  || defined(__GNUC__)
+		auto name = abi::__cxa_demangle(typeid(T).name(), nullptr, nullptr, nullptr);
+
+		std::string result{name};
+
+		free(name);
+
+		return result;
+#else
+	#error Compiler needs implementation for type_name
+#endif // _MSC_VER
+	}
+
 	template<typename T, std::size_t size>
 	constexpr std::size_t array_size(T(&)[size]) noexcept{ return size; }
 
