@@ -8,6 +8,7 @@
 #endif
 
 #include <ctime>
+#include <cctype>
 #include <memory>
 #include <string>
 #include <cstddef>
@@ -23,7 +24,14 @@ namespace util{
 	template<typename T>
 	std::string type_name(){
 #ifdef _MSC_VER
-		return typeid(T).name();
+		auto name = typeid(T).name();
+		auto start = name + std::strlen(name);
+
+		while(start != name && !std::isspace(*(start - 1))) // Removing 'struct', 'enum' or 'class' prefix
+			--start;
+
+		return start;
+
 #elif defined(__clang__)  || defined(__GNUC__)
 		auto name = abi::__cxa_demangle(typeid(T).name(), nullptr, nullptr, nullptr);
 
