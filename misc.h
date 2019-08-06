@@ -12,6 +12,7 @@
 #include <memory>
 #include <string>
 #include <cstddef>
+#include <iterator>
 #include <typeinfo>
 #include <type_traits>
 #include <string_view>
@@ -45,9 +46,6 @@ namespace util{
 #endif // _MSC_VER
 	}
 
-	template<typename T, std::size_t size>
-	constexpr std::size_t array_size(T(&)[size]) noexcept{ return size; }
-
 	template<typename S, typename T>
 	std::uintptr_t offset_of(T S::*member){
 		static_assert(std::is_standard_layout<S>{});
@@ -73,7 +71,7 @@ namespace util{
 	inline std::string absolute_path(std::string_view path){
 		char buffer[512];
 
-		GetFullPathNameA(path.empty() ? "." : path.data(), static_cast<DWORD>(array_size(buffer)), buffer, nullptr);
+		GetFullPathNameA(path.empty() ? "." : path.data(), static_cast<DWORD>(std::size(buffer)), buffer, nullptr);
 
 		return buffer;
 	}
@@ -100,7 +98,7 @@ namespace util{
 		std::time_t rawTime = std::time(nullptr);
 		std::tm* timeInfo = std::localtime(&rawTime);
 
-		std::strftime(buffer, array_size(buffer), fmt.data(), timeInfo);
+		std::strftime(buffer, std::size(buffer), fmt.data(), timeInfo);
 
 		return buffer;
 	}
